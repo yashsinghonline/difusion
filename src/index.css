@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-void: #08080a;
+  --color-panel: #0e0f11;
+  --color-panel2: #121316;
+  --color-edge: #1e2126;
+  --color-edge2: #2a2e34;
+  --color-lime: #c9f158;
+  --color-dim: #8f949c;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  background: #08080a;
+  color: #d7dae0;
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+::selection { background: #c9f158; color: #08080a; }
+
+/* ---------- scrollbars ---------- */
+.scroll-thin { scrollbar-width: thin; scrollbar-color: #2a2e34 transparent; }
+.scroll-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+.scroll-thin::-webkit-scrollbar-thumb { background: #23262b; border-radius: 3px; }
+.scroll-thin::-webkit-scrollbar-track { background: transparent; }
+.scroll-none { scrollbar-width: none; }
+.scroll-none::-webkit-scrollbar { display: none; }
+
+/* ---------- DIFUSION range control ---------- */
+input[type="range"].df-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 18px;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"].df-range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--track, #23262b);
+  border-radius: 1px;
+}
+input[type="range"].df-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  background: #0e0f11;
+  border: 1.5px solid #c9f158;
+  margin-top: -4px;
+  transform: rotate(45deg);
+  transition: background .15s ease, transform .15s ease;
+}
+input[type="range"].df-range:hover::-webkit-slider-thumb,
+input[type="range"].df-range:focus-visible::-webkit-slider-thumb { background: #c9f158; }
+input[type="range"].df-range::-moz-range-track {
+  height: 2px; background: var(--track, #23262b); border-radius: 1px;
+}
+input[type="range"].df-range::-moz-range-thumb {
+  width: 9px; height: 9px; border-radius: 2px;
+  background: #0e0f11; border: 1.5px solid #c9f158; transform: rotate(45deg);
+}
+input[type="range"].df-range:focus-visible { outline: 1px solid #3a3e44; outline-offset: 4px; border-radius: 2px; }
+
+/* ---------- micro labels ---------- */
+.df-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8f949c;
+}
+.df-value {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: #c9f158;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- animations ---------- */
+@keyframes df-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+.df-pulse { animation: df-pulse 1.4s ease-in-out infinite; }
+@keyframes df-fadeup { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.df-fadeup { animation: df-fadeup .45s cubic-bezier(.22,1,.36,1) both; }
+@keyframes df-fadein { from { opacity: 0; } to { opacity: 1; } }
+.df-fadein { animation: df-fadein .3s ease both; }
+@keyframes df-scan {
+  0% { transform: translateX(-100%);} 100% { transform: translateX(240%); }
+}
+
+/* faint stage vignette */
+.stage-vignette {
+  background:
+    radial-gradient(120% 90% at 50% 8%, transparent 55%, rgba(0,0,0,.5) 100%);
+}
+
+/* code blocks */
+.df-code {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.65;
+  white-space: pre;
+  color: #b8bdc5;
+}
+.df-code .tk-k { color: #c9f158; }
+.df-code .tk-s { color: #9be18c; }
+.df-code .tk-c { color: #5b6068; }
+
+@media (prefers-reduced-motion: reduce) {
+  .df-fadeup, .df-fadein { animation: none; }
+}
